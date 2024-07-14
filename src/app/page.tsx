@@ -52,8 +52,8 @@ const Home: React.FC = () => {
     const fetchData = async () => {
       try {
         const [customersRes, transactionsRes] = await Promise.all([
-          axios.get("http://localhost:3000/customers"),
-          axios.get("http://localhost:3000/transactions"),
+          axios.get("https://summit-api-kappa.vercel.app/customers"),
+          axios.get("https://summit-api-kappa.vercel.app/transactions"),
         ]);
         setCustomers(customersRes.data);
         setTransactions(transactionsRes.data);
