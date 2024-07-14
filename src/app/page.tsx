@@ -52,8 +52,8 @@ const Home: React.FC = () => {
     const fetchData = async () => {
       try {
         const [customersRes, transactionsRes] = await Promise.all([
-          axios.get("https://summit-api-kappa.vercel.app/customers"),
-          axios.get("https://summit-api-kappa.vercel.app/transactions"),
+          axios.get("http://localhost:3000/customers"),
+          axios.get("http://localhost:3000/transactions"),
         ]);
         setCustomers(customersRes.data);
         setTransactions(transactionsRes.data);
@@ -181,7 +181,7 @@ const Home: React.FC = () => {
             </Select>
           </section>
 
-          <section className=" mx-2  overflow-x-auto lg:flex justify-center my-5">
+          <section className=" mx-2  overflow-x-auto md:flex justify-center my-5 hidden ">
             <div>
               {selectedCustomer && (
                 <LineChart
@@ -189,6 +189,26 @@ const Home: React.FC = () => {
                   height={300}
                   data={graphData}
                   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis name="amount" />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="amount" stroke="#8884d8" />
+                </LineChart>
+              )}
+            </div>
+          </section>
+
+          <section className="   overflow-x-auto md:hidden justify-center my-5 flex text-sm">
+            <div>
+              {selectedCustomer && (
+                <LineChart
+                  width={320}
+                  height={200}
+                  data={graphData}
+                  margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="date" />
